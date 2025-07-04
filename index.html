@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexusCloud - Premium Bot Panel Gen 1</title>
+  <link href="wght@400;500;600;700&display=swap">https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --bg-light: #FFFFFF; /* White background */
+      --bg-dark: #F8F8F8; /* Slightly off-white for sections */
+      --card-bg: #FFFFFF; /* Card background */
+      --card-border: #EEEEEE; /* Light border */
+      --primary: hsl(180, 100%, 30%); /* Darker teal for main accent */
+      --secondary: hsl(180, 100%, 35%); /* Slightly lighter teal */
+      --text-main: #333333; /* Dark gray for main text */
+      --text-light: #555555; /* Medium gray for descriptions */
+      --text-soft: #888888; /* Lighter gray for softer text */
+      --button-bg: var(--primary);
+      --button-hover-bg: var(--secondary);
+      --button-text: #FFFFFF; /* White text for buttons */
+      --shadow-light: rgba(0, 0, 0, 0.05);
+      --shadow-medium: rgba(0, 0, 0, 0.1);
+      --shadow-strong: rgba(0, 0, 0, 0.15);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+    /* Scrollbar Styling - Adapted for light theme */
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+      background: var(--bg-light);
+    }
+    body::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 10px;
+      border: 2px solid var(--bg-light);
+    }
+    /* Header */
+    header {
+      background: var(--bg-light);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--card-border);
+      box-shadow: 0 2px 10px var(--shadow-light); /* Soft shadow for header */
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 28px; /* Slightly larger logo */
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    nav a {
+      margin-left: 30px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+    nav a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+    .header-actions .btn-login {
+        background: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        padding: 8px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 20px;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .header-actions .btn-login:hover {
+        background: var(--primary);
+        color: var(--button-text);
+    }
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 120px 20px 100px; /* More padding */
+      background: var(--bg-light); /* White background */
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 58px; /* Larger heading */
+      color: var(--text-main);
+      margin-bottom: 25px;
+      font-weight: 700;
+      line-height: 1.2;
+      animation: fadeInDown 1s ease-out;
+    }
+    .hero h1 span {
+      color: var(--primary);
+    }
+    .hero p {
+      color: var(--text-light);
+      font-size: 20px; /* Slightly larger text */
+      max-width: 800px; /* Wider paragraph */
+      margin: 0 auto 50px; /* More margin */
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+    .hero .cta-group {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        animation: fadeInUp 1s ease-out 0.6s forwards;
+        opacity: 0;
+    }
+    .hero .cta {
+      padding: 18px 40px; /* Larger buttons */
+      font-weight: 600;
+      background: var(--button-bg);
+      color: var(--button-text);
+      border-radius: 12px; /* Softer corners */
+      text-decoration: none;
+      border: none;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      font-size: 19px; /* Slightly larger font */
+      box-shadow: 0 8px 20px rgba(0, 209, 209, 0.2); /* More prominent shadow */
+    }
+    .hero .cta:hover {
+      background: var(--button-hover-bg);
+      transform: translateY(-5px); /* More pronounced lift */
+      box-shadow: 0 12px 25px rgba(0, 209, 209, 0.3);
+    }
+    .hero .cta-secondary {
+        background: transparent; /* Transparent background */
+        border: 1px solid var(--card-border); /* Light border */
+        color: var(--primary);
+        padding: 18px 40px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 19px;
+        transition: background 0.3s ease, transform 0.2s ease, border-color 0.3s ease, color 0.3s ease;
+        box-shadow: 0 4px 10px var(--shadow-light); /* Soft shadow */
+    }
+    .hero .cta-secondary:hover {
+        background: var(--primary); /* Teal background on hover */
+        color: var(--button-text); /* White text on hover */
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 8px 20px rgba(0, 209, 209, 0.2);
+    }
+    /* Features Section */
+    .features-grid {
+      padding: 80px 20px; /* More padding */
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly larger min-width */
+      gap: 30px;
+      text-align: center;
+      background: var(--bg-dark); /* Slightly off-white background */
+      border-radius: 15px; /* Rounded corners for the entire section */
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.03); /* Very subtle inner shadow */
+    }
+    .feature-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 15px; /* Softer corners */
+      padding: 35px; /* More padding */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 15px var(--shadow-light); /* Softer, larger shadow */
+    }
+    .feature-item:hover {
+      transform: translateY(-8px); /* More pronounced lift */
+      box-shadow: 0 12px 25px var(--shadow-medium), 0 0 20px rgba(0, 209, 209, 0.08); /* Stronger shadow with hint of accent */
+    }
+    .feature-item .icon {
+      font-size: 45px; /* Larger icon */
+      color: var(--primary);
+      margin-bottom: 20px; /* More space */
+    }
+    .feature-item h3 {
+      font-size: 22px; /* Larger heading */
+      color: var(--text-main);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .feature-item p {
+      font-size: 16px; /* Slightly larger text */
+      color: var(--text-light);
+    }
+    /* Pricing Section */
+    .pricing-section {
+        padding: 100px 20px; /* More padding */
+        background: var(--bg-light);
+        text-align: center;
+    }
+    .pricing-section h2 {
+        font-size: 44px; /* Larger heading */
+        color: var(--text-main);
+        margin-bottom: 25px; /* More space */
+        font-weight: 700;
+    }
+    .pricing-section p {
+        font-size: 19px; /* Slightly larger text */
+        color: var(--text-light);
+        max-width: 750px;
+        margin: 0 auto 70px; /* More margin */
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Larger min-width for cards */
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px; /* More rounded corners */
+      padding: 40px; /* More padding */
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 520px; /* Ensure consistent height */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px var(--shadow-light); /* Softer, larger shadow */
+    }
+    .pricing-card:hover {
+      transform: translateY(-10px); /* More pronounced lift */
+      box-shadow: 0 15px 40px var(--shadow-medium), 0 0 30px rgba(0, 209, 209, 0.1); /* Stronger shadow with accent */
+    }
+    .pricing-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(0, 209, 209, 0.05) 0%, transparent 70%); /* Lighter accent */
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+    .pricing-card:hover::before {
+        opacity: 1;
+    }
+    .pricing-card h3 {
+      font-size: 32px; /* Larger heading */
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .pricing-card .price {
+      font-size: 52px; /* Larger price */
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 25px; /* More space */
+      display: flex;
+      align-items: baseline;
+      letter-spacing: -1px;
+    }
+    .pricing-card .price span {
+      font-size: 24px; /* Larger currency text */
+      font-weight: 500;
+      color: var(--text-light);
+      margin-left: 8px; /* More space */
+    }
+    .pricing-card .old-price {
+        text-decoration: line-through;
+        color: var(--text-soft);
+        font-size: 18px; /* Slightly larger */
+        margin-left: 10px;
+        font-weight: 400;
+    }
+    .pricing-card .save-offer {
+        background: rgba(0, 209, 209, 0.08); /* Lighter background */
+        color: var(--primary);
+        font-size: 14px; /* Slightly larger */
+        font-weight: 600;
+        padding: 6px 12px; /* More padding */
+        border-radius: 6px;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+    .pricing-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 35px; /* More space */
+      flex-grow: 1;
+    }
+    .pricing-card ul li {
+      margin-bottom: 15px; /* More space between items */
+      padding-left: 35px; /* More padding */
+      position: relative;
+      color: var(--text-light);
+      font-size: 17px; /* Slightly larger text */
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    .pricing-card ul li i {
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 20px; /* Larger icon */
+    }
+    .pricing-card .btn-order {
+      display: block;
+      width: 100%;
+      padding: 18px 0; /* More padding */
+      background: var(--button-bg);
+      color: var(--button-text);
+      border-radius: 12px; /* Softer corners */
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 19px; /* Larger font */
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0, 209, 209, 0.25); /* Stronger shadow */
+      text-align: center;
+    }
+    .pricing-card .btn-order:hover {
+      background: var(--button-hover-bg);
+      transform: translateY(-3px); /* More pronounced lift */
+      box-shadow: 0 8px 25px rgba(0, 209, 209, 0.35);
+    }
+    .chat-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; /* More space */
+        margin-top: 18px; /* More margin */
+        background: var(--bg-dark); /* Match background */
+        color: var(--text-main);
+        padding: 15px 25px; /* More padding */
+        border-radius: 10px; /* Softer corners */
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 17px; /* Slightly larger font */
+        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 3px 10px var(--shadow-light); /* Soft shadow */
+    }
+    .chat-button:hover {
+        background: var(--primary); /* Primary background on hover */
+        color: var(--button-text); /* White text on hover */
+        box-shadow: 0 5px 15px rgba(0, 209, 209, 0.2);
+    }
+    /* Global Section Styling */
+    .section-heading {
+        text-align: center;
+        margin-bottom: 80px; /* More margin */
+    }
+    .section-heading h2 {
+        font-size: 48px; /* Larger heading */
+        color: var(--text-main);
+        font-weight: 700;
+        margin-bottom: 20px; /* More space */
+    }
+    .section-heading p {
+        font-size: 20px; /* Larger text */
+        color: var(--text-light);
+        max-width: 850px;
+        margin: 0 auto;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 20px; /* More padding */
+      color: var(--text-soft);
+      font-size: 16px; /* Slightly larger font */
+      border-top: 1px solid var(--card-border);
+      background: var(--bg-dark); /* Slightly off-white background */
+    }
+    /* Animations (unchanged, but still relevant) */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        header {
+            padding: 15px 25px;
+        }
+        .hero {
+            padding: 100px 15px 80px;
+        }
+        .hero h1 {
+            font-size: 48px;
+        }
+        .hero p {
+            font-size: 18px;
+        }
+        .hero .cta, .hero .cta-secondary {
+            padding: 16px 35px;
+            font-size: 17px;
+        }
+        .features-grid {
+            padding: 60px 15px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        .feature-item {
+            padding: 30px;
+        }
+        .pricing-section {
+            padding: 80px 15px;
+        }
+        .pricing-section h2 {
+            font-size: 38px;
+        }
+        .pricing-section p {
+            font-size: 17px;
+        }
+        .pricing-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .pricing-card {
+            min-height: auto;
+            padding: 35px;
+        }
+        .pricing-card h3 {
+            font-size: 28px;
+        }
+        .pricing-card .price {
+            font-size: 45px;
+        }
+        .pricing-card .price span {
+            font-size: 20px;
+        }
+        .pricing-card ul li {
+            font-size: 16px;
+        }
+        .pricing-card .btn-order, .chat-button {
+            padding: 16px 0;
+            font-size: 17px;
+        }
+    }
+    @media (max-width: 768px) {
+        nav {
+            display: none; /* Hide nav for mobile, consider adding a hamburger menu */
+        }
+        .hero h1 {
+            font-size: 40px;
+        }
+        .hero p {
+            font-size: 16px;
+        }
+        .hero .cta-group {
+            flex-direction: column;
+            gap: 15px;
+        }
+        .section-heading h2 {
+            font-size: 34px;
+        }
+        .section-heading p {
+            font-size: 16px;
+        }
+        .pricing-grid {
+            grid-template-columns: 1fr; /* Single column on smaller mobiles */
+        }
+        .pricing-card {
+            max-width: 400px; /* Limit width of single column cards */
+            margin: 0 auto;
+        }
+    }
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 24px;
+        }
+        .header-actions .btn-login {
+            padding: 7px 15px;
+            font-size: 15px;
+        }
+        .hero h1 {
+            font-size: 32px;
+        }
+        .hero .cta, .hero .cta-secondary {
+            padding: 14px 30px;
+            font-size: 16px;
+        }
+        .feature-item .icon {
+            font-size: 40px;
+        }
+        .feature-item h3 {
+            font-size: 20px;
+        }
+        .pricing-section h2 {
+            font-size: 30px;
+        }
+        .pricing-card .price {
+            font-size: 40px;
+        }
+        .pricing-card .price span {
+            font-size: 18px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Orbit<span>Cloud</span></div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#pricing">Packages</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <a href="#" class="btn-login">
+            <i class="fas fa-user-circle"></i> Client Area
+        </a>
+    </div>
+  </header>
+  <section class="hero">
+    <h1>Premium Bot Panel that suits you<br><span>Premium - Panel</span></h1>
+    <p>NexusCloud delivers 1.0 generation BOT panels with incredible speed, top-tier security, and truly professional service.</p>
+    <div class="cta-group">
+        <a class="cta" href="https://wa.me/628150314876" target="_blank">Order Now</a>
+        <a class="cta-secondary" href="#features">Learn More</a>
+    </div>
+  </section>
+  <section class="features-grid" id="features">
+    <div class="feature-item">
+      <i class="fas fa-server icon"></i>
+      <h3>Superior Performance</h3>
+      <p>Powered by BRANZCloud and top-tier hardware for a lag-free experience.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-shield-alt icon"></i>
+      <h3>Robust Anti-DDoS</h3>
+      <p>Advanced protection with F5 + Stackpath x3 Anti-DDoS for secure servers.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-headset icon"></i>
+      <h3>24/7 Support</h3>
+      <p>Our dedicated support team is ready to assist you anytime, any day.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-globe icon"></i>
+      <h3>Global Server Locations</h3>
+      <p>Choose from multiple server locations for optimal ping and performance.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-tachometer-alt icon"></i>
+      <h3>High-Speed SSD Storage</h3>
+      <p>Blazing fast SSD storage ensures quick loading times and responsiveness.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-cogs icon"></i>
+      <h3>Easy Control Panel</h3>
+      <p>Manage your server effortlessly with our intuitive and user-friendly control panel.</p>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-undo-alt icon"></i>
+      <h3>One-Click Reinstall</h3>
+      <p>Quickly reinstall your server with a fresh setup in just one click.</p>
+    </div>
+  </section>
+  <section class="pricing-section" id="pricing">
+    <div class="section-heading">
+        <h2>Choose Your Best Hosting Package</h2>
+        <p>We offer a variety of premium SA-MP hosting packages with specifications to suit your server needs. Affordable prices, guaranteed quality!</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div>
+            <h3>Very Very Low Package</h3>
+            <span class="save-offer">Save 15%</span>
+            <div class="price">Rp30.500<span>/mo</span></div>
+            <ul>
+              <li><i class="fas fa-memory"></i> 2GB RAM</li>
+              <li><i class="fas fa-microchip"></i> 10% CPU</li>
+              <li><i class="fas fa-hdd"></i> Unlimited Disk Space</li>
+              <li><i class="fas fa-cloud-upload-alt"></i> Web File Upload</li>
+              <li><i class="fas fa-shield-alt"></i> Anti-DDoS Protection</li>
+              <li><i class="fas fa-map-marker-alt"></i> Customizable Server Location</li>
+              <li><i class="fas fa-database"></i> Free MySQL</li>
+              <li><i class="fas fa-headset"></i> Full 24/7 Support</li>
+              <li><i class="fas fa-exchange-alt"></i> Free Server Transfer</li>
+            </ul>
+        </div>
+        <a href="https://wa.me/6285381938012?text=I'm%20interested%20in%20the%20Very%20Very%20Low%20SA-MP%20Hosting%20package%20from%20OrbitCloud." target="_blank" class="btn-order">Order Now</a>
+        <a href="https://wa.me/6285381938012" target="_blank" class="chat-button">
+            <i class="fab fa-whatsapp"></i> Chat Admin
+        </a>
+      </div>
+      <div class="pricing-card">
+        <div>
+          <h3>High performance Package</h3>
+            <div class="price">Rp5.000<span>/mo</span></div>
+            <ul>
+              <li><i class="fas fa-memory"></i> Unlimited RAM</li>
+              <li><i class="fas fa-microchip"></i> Unlimited CPU</li>
+              <li><i class="fas fa-hdd"></i> Unlimited Disk Space</li>
+              <li><i class="fas fa-cloud-upload-alt"></i> Web File Upload</li>
+              <li><i class="fas fa-shield-alt"></i> Anti-DDoS Protection</li>
+              <li><i class="fas fa-map-marker-alt"></i> Customizable Server Location</li>
+              <li><i class="fas fa-database"></i> Free MySQL</li>
+              <li><i class="fas fa-headset"></i> Full 24/7 Support</li>
+              <li><i class="fas fa-exchange-alt"></i> Free Server Transfer</li>
+            </ul>
+        </div>
+        <a href="https://wa.me/6281350314876" target="_blank" class="btn-order">Order Now</a>
+        <a href="https://wa.me/6285381938012" target="_blank" class="chat-button">
+            <i class="fab fa-whatsapp"></i> Chat Admin
+        </a>
+      </div>
